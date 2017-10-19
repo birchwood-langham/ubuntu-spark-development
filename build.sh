@@ -12,4 +12,4 @@
 # We put this in the build script so that it doesn't download every single
 # time if we have to rebuild. Also, we don't need to install wget in the container
 
-docker build -t birchwoodlangham/ubuntu-spark-development:2.2.0 .
+docker build -t birchwoodlangham/ubuntu-spark-development:2017-10 .

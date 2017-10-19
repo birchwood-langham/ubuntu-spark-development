@@ -32,3 +32,4 @@ See the [Spark website](http://spark.apache.org/) for more information about wha
 
 2017-05-11: Updated Spark and Anaconda version
 2017-05-11: Changed folder for code into a subdirectory of the home directory for better organisation, and fixed the README file so that the correct docker commands are provided to launch containers
+2017-10-19: Updated Anaconda version and changed version numbering

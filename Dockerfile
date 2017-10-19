@@ -1,17 +1,20 @@
-FROM birchwoodlangham/ubuntu-scala:2.12.3
+FROM birchwoodlangham/ubuntu-scala:latest
 
+MAINTAINER Tan Quach <tan.quach@birchwoodlangham.com>
+
+ENV DEBIAN_FRONTEND noninteractive
 ENV ANACONDA_PATH=/usr/local/anaconda
 
 RUN groupadd -g 1000 spark && \
     useradd -u 1000 -g 1000 -m -d /home/spark spark && \
     mkdir -p /opt/apps && \
-    wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh && \
+    wget https://repo.continuum.io/archive/Anaconda3-5.0.0.1-Linux-x86_64.sh && \
     wget https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-hadoop2.7.tgz && \
     tar -C /opt/apps -zxf spark-2.2.0-bin-hadoop2.7.tgz && \
     chown -R spark:spark /opt/apps/spark-2.2.0-bin-hadoop2.7 && \
     ln -s /opt/apps/spark-2.2.0-bin-hadoop2.7 /usr/local/spark && \
-    bash Anaconda3-4.4.0-Linux-x86_64.sh -b -p $ANACONDA_PATH && \
-    rm Anaconda3-4.4.0-Linux-x86_64.sh spark-2.2.0-bin-hadoop2.7.tgz && \
+    bash Anaconda3-5.0.0.1-Linux-x86_64.sh -b -p $ANACONDA_PATH && \
+    rm Anaconda3-5.0.0.1-Linux-x86_64.sh spark-2.2.0-bin-hadoop2.7.tgz && \
     $ANACONDA_PATH/bin/pip install --upgrade pip && \
     $ANACONDA_PATH/bin/pip install py4j && \
     $ANACONDA_PATH/bin/conda install jupyter -y --quiet
