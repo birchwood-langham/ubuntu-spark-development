@@ -4,20 +4,24 @@ MAINTAINER Tan Quach <tan.quach@birchwoodlangham.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV ANACONDA_PATH=/usr/local/anaconda
+ENV PATH=$PATH:$ANACONDA_PATH/bin
 
 RUN groupadd -g 1000 spark && \
     useradd -u 1000 -g 1000 -m -d /home/spark spark && \
     mkdir -p /opt/apps && \
-    wget https://repo.continuum.io/archive/Anaconda3-5.0.0.1-Linux-x86_64.sh && \
-    wget https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-hadoop2.7.tgz && \
-    tar -C /opt/apps -zxf spark-2.2.0-bin-hadoop2.7.tgz && \
-    chown -R spark:spark /opt/apps/spark-2.2.0-bin-hadoop2.7 && \
-    ln -s /opt/apps/spark-2.2.0-bin-hadoop2.7 /usr/local/spark && \
-    bash Anaconda3-5.0.0.1-Linux-x86_64.sh -b -p $ANACONDA_PATH && \
-    rm Anaconda3-5.0.0.1-Linux-x86_64.sh spark-2.2.0-bin-hadoop2.7.tgz && \
-    $ANACONDA_PATH/bin/pip install --upgrade pip && \
-    $ANACONDA_PATH/bin/pip install py4j && \
-    $ANACONDA_PATH/bin/conda install jupyter -y --quiet
+    wget https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh && \
+    wget http://www.mirrorservice.org/sites/ftp.apache.org/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz && \
+    tar -C /opt/apps -zxf spark-2.2.1-bin-hadoop2.7.tgz && \
+    chown -R spark:spark /opt/apps/spark-2.2.1-bin-hadoop2.7 && \
+    ln -s /opt/apps/spark-2.2.1-bin-hadoop2.7 /usr/local/spark && \
+    bash Anaconda3-5.1.0-Linux-x86_64.sh -b -p $ANACONDA_PATH && \
+    rm Anaconda3-5.1.0-Linux-x86_64.sh spark-2.2.1-bin-hadoop2.7.tgz && \
+    pip install --upgrade pip && \
+    pip install py4j && \
+    conda update -n base conda && \
+    conda install jupyter -y --quiet && \
+    pip install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0-incubating-rc3/toree-pip/toree-0.2.0.tar.gz && \
+    jupyter toree install
 
 USER spark
 WORKDIR /home/spark
